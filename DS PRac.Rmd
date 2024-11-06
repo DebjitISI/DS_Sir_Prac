@@ -1,0 +1,60 @@
+---
+title: 'DS Sir Practical'
+author: "Debjit Khaskel"
+date: "2024-11-06"
+output: word_document
+---
+
+```{r}
+library(tidyverse)
+AirPassengers
+ap=as.vector(AirPassengers)
+time=seq(1:length(ap))
+ap_data=data.frame(time,ap)
+ap_data
+```
+
+```{r}
+ggplot(data = ap_data,mapping = aes(x=time,y=ap))+
+  geom_point()+
+  geom_line()+
+  geom_smooth()+
+  labs(title = "Yearly Air Passengers")+
+  xlab("Time")+
+  ylab("Air Passengers")
+```
+```{r}
+HairEyeColor
+```
+
+```{r}
+HairEyeColor
+hr=HairEyeColor
+males=data.frame(hr[,2,1])
+males_new=data.frame(color=row.names(males),number=males[,1])
+ggplot(data=males_new,aes(x=number,y=color))+
+  geom_bar(stat = 'identity',fill='blue')
+```
+```{r}
+males_hec=data.frame(hr[,,1])
+ggplot(data=males_hec,mapping = aes(fill=Eye, x=Hair, y=Freq))+
+  geom_bar(stat = "identity",position="dodge")
+```
+
+```{r}
+ggplot(data=males_hec,mapping = aes(fill=Eye, x=Hair, y=Freq))+
+  geom_bar(stat = "identity",position="fill")
+```
+
+```{r}
+ggplot(data=males_hec,mapping = aes(fill=Eye, x=Hair, y=Freq))+
+  geom_bar(stat = "identity",position='fill')+
+  coord_polar(theta = "y")
+```
+```{r}
+ggplot(data=males_hec,mapping = aes(fill=Eye, x='', y=Freq))+
+  geom_bar(stat = "identity",position='fill')+
+  coord_polar(theta = "y")+
+  facet_wrap(~Hair, ncol = 3,scales = 'free')
+```
+
