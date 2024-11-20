@@ -58,3 +58,52 @@ ggplot(data=males_hec,mapping = aes(fill=Eye, x='', y=Freq))+
   facet_wrap(~Hair, ncol = 3,scales = 'free')
 ```
 
+```{r}
+library(MASS)
+attach(Cars93)
+names(Cars93)
+hp=Cars93$Horsepower
+pr=Cars93$Price
+biv=data.frame(Horsepower=hp,Price=pr)
+biv
+```
+```{r warning=FALSE}
+library(tidyverse)
+ggplot(biv,aes(x=Horsepower,y=Price))+
+  geom_point()
+```
+In the lower range it shows a linear relationship but as we increase the horsepower we see that the assosiation is weak.
+```{r}
+cor(hp,pr)
+```
+There exists a strong positive linear association between horsepower and price.
+```{r}
+fit.line=lm(pr~hp)
+coef=as.vector(coefficients(fit.line))
+a.hat=coef[1]
+b.hat=coef[2]
+fit.pr=predict(fit.line);fit.pr
+res=resid(fit.line)
+```
+
+```{r}
+plot=ggplot(biv,aes(x=Horsepower,y=Price))+
+  geom_point()+
+  geom_abline(aes(intercept=a.hat,slope=b.hat))
+```
+
+```{r}
+lin_reg=data.frame(biv,Y=fit.pr,e=res);lin_reg
+res_plot=ggplot(lin_reg,aes(x=Horsepower,y=e))+
+  geom_point()
+
+cor(res,hp)
+```
+
+
+```{r}
+install.packages("gridExtra")
+library(gridExtra)
+```
+```{r}
+grid.arrange(plot,res_plot,nrow=2)
