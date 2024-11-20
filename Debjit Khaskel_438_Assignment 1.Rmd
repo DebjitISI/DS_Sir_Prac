@@ -1,0 +1,34 @@
+---
+title: "DS Internal Assessment"
+author: "Debjit Khaskel"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r }
+library(MASS)
+cats
+```
+
+```{r}
+ggplot(cats,aes(x=Bwt,y=Hwt))+
+  geom_point(color="red")+
+  geom_line()+
+  geom_smooth()+
+  facet_wrap(~Sex)+
+  labs(title="Body Weight VS Heart Weight of female and male cats")+
+  xlab("Body weight in kg")+
+  ylab("Heart weight in g")
+```
+
+```{r}
+ggplot(cats,aes(x=Bwt))+
+  geom_boxplot(aes(y=Sex),fill="yellow")+
+  coord_flip()+
+  labs(title="Boxplot of Body Weight of female and male cats")+
+  ylab("Sex")+
+  xlab("Body weight in kg")
+```
+
+
+
